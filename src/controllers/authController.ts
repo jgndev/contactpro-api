@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import app from './app';
+import app from '../app';
 
 app.post('/register', async (req, res) => {
     // const { username, email, password } = req.body;

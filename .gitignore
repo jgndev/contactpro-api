@@ -7,3 +7,7 @@ node_modules/
 
 # Build Directory
 dist/
+
+# Evironment files
+.env
+.env.*
