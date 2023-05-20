@@ -6,6 +6,7 @@ import {
 } from "typeorm";
 import {Contact} from "./contact";
 import {Category} from "./category";
+import {UserRole} from "../enum/userRole";
 
 @Entity()
 @Unique(['username', 'email'])
@@ -13,8 +14,11 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ nullable: true })
+    @Column()
     username: string;
+
+    @Column({type: 'enum', enum: UserRole, default: UserRole.USER})
+    role: string;
 
     @Column( { nullable: true })
     email: string;
