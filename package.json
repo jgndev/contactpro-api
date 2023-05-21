@@ -7,16 +7,13 @@
     "test": "echo \"Testing has not been implemented yet...\" && exit 1",
     "build": "tsc",
     "start": "tsc && node ./dist/app.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && node ./dist/app.js'",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "typeorm:migrate": "npm run typeorm -- migration:run --config ormconfig.js",
-    "typeorm:generate": "npm run typeorm -- migration:generate --config ormconfig.js",
-    "typeorm:revert": "npm run typeorm -- migration:revert --config ormconfig.js"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && node ./dist/app.js'"
   },
   "keywords": [],
   "author": "Jeremy Novak",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^4.14.1",
     "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.13",
