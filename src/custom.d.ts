@@ -1,7 +1,7 @@
-import {TokenPayload} from "./interfaces/tokenPayload";
+import {TokenPayload} from './interfaces/tokenPayload';
 
 declare module 'express-serve-static-core' {
-    interface Request {
-        user?: TokenPayload;
-    }
+  interface Request {
+    user?: TokenPayload;
+  }
 }

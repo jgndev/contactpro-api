@@ -1,9 +1,4 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    Unique, OneToMany
-} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {Contact} from "./contact";
 import {Category} from "./category";
 import {UserRole} from "../enum/userRole";
@@ -20,25 +15,25 @@ export class User {
     @Column({type: 'enum', enum: UserRole, default: UserRole.USER})
     role: string;
 
-    @Column( { nullable: true })
+    @Column({nullable: true})
     email: string;
 
-    @Column( { nullable: true})
+    @Column({nullable: true})
     password: string;
 
-    @Column( { nullable: true })
+    @Column({nullable: true})
     firstName: string;
 
-    @Column( { nullable: true })
+    @Column({nullable: true})
     lastName: string;
 
-    @Column( { nullable: true })
+    @Column({nullable: true})
     picture: string;
 
-    @Column( { nullable: true })
+    @Column({nullable: true})
     provider: string;
 
-    @Column( { nullable: true })
+    @Column({nullable: true})
     providerId: string;
 
     @OneToMany(() => Contact, contacts => contacts.user)

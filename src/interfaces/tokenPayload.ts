@@ -1,6 +1,6 @@
-import {UserRole} from "../enum/userRole";
+import {UserRole} from '../enum/userRole';
 
 export interface TokenPayload {
-    id: number;
-    role: UserRole;
+  id: number;
+  role: UserRole;
 }

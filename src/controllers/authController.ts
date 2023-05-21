@@ -3,8 +3,7 @@
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import app from '../app';
-import {getRepository} from "typeorm";
+import app, {AppDataSource} from '../app';
 import {User} from "../models/user";
 import {RegisterDto} from "../dto/registerDto";
 import {LoginDto} from "../dto/loginDto";
@@ -14,7 +13,7 @@ app.post('/register', async (req, res) => {
     const {username, email, password}: RegisterDto = req.body;
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const userRepository = getRepository(User);
+    const userRepository = AppDataSource.getRepository(User);
 
     const newUser = userRepository.create({
         username,
@@ -30,7 +29,7 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     const {email, password}: LoginDto = req.body;
 
-    const userRepository = getRepository(User);
+    const userRepository = AppDataSource.getRepository(User);
 
     const user = await userRepository.findOne({
         where: {
@@ -57,13 +56,6 @@ app.post('/login', async (req, res) => {
     })
 });
 
-function isAdmin(req: any, res: any, next: any) {
-    if (req.user && req.user.role === 'admin') {
-        next();
-    } else {
-        res.status(403).json({message: "Forbidden"});
-    }
-}
 
 app.use((req, res, next) => {
     const token = req.headers['authorization'];
@@ -73,7 +65,7 @@ app.use((req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
 
         if (!decodedToken) {
-            return res.status(401).json({error: "Unauthorized"})
+            return res.status(401).json({error: 'Unauthorized'})
         }
 
         const payload = decodedToken as TokenPayload;
@@ -84,6 +76,14 @@ app.use((req, res, next) => {
             role: payload.role
         };
     } catch (error) {
-        return res.status(401).json({error: "Unauthorized"});
+        return res.status(401).json({error: 'Unauthorized'});
     }
 });
+
+function isAdmin(req: any, res: any, next: any) {
+    if (req.user && req.user.role === 'admin') {
+        next();
+    } else {
+        res.status(403).json({message: 'Forbidden'});
+    }
+}
