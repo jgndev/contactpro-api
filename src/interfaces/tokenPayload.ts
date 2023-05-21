@@ -1,6 +1,6 @@
-import {UserRole} from '../enums/userRole';
+import {UserRole} from '@prisma/client'
 
 export interface TokenPayload {
     id: number;
-    role: UserRole;
+    role: UserRole
 }
