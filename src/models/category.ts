@@ -1,25 +1,23 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    Unique, ManyToOne, ManyToMany, JoinColumn
-} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {User} from "./user";
 import {Contact} from "./contact";
 
 @Entity()
 @Unique(['name', 'userId'])
 export class Category {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ManyToOne(() => User, user => user.categories)
-    @JoinColumn({name: "userId"})
-    user: User;
+  @ManyToOne(() => User, user => user.categories)
+  @JoinColumn({name: "userId"})
+  user: User;
 
-    @Column()
-    name: string;
+  @Column()
+  userId: number;
 
-    @ManyToMany(() => Contact, contact => contact.categories)
-    contacts: Contact[];
+  @Column()
+  name: string;
+
+  @ManyToMany(() => Contact, contact => contact.categories)
+  contacts: Contact[];
 }

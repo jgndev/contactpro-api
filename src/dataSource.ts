@@ -7,14 +7,15 @@ import {Contact} from "./models/contact";
 // Set 'synchronize: false' with data that should persist.
 // Having 'synchronize: true' will re-initialize the database.
 export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: process.env.DB_HOST,
-  port: 5432,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  synchronize: true,
-  logging: true,
-  entities: [User, Category, Contact],
-  subscribers: [],
-  migrations: [],
+    type: "postgres",
+    host: process.env.DB_HOST,
+    port: 5432,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    synchronize: true,
+    logging: true,
+    entities: [User, Category, Contact],
+    subscribers: [],
+    migrations: ["src/migration/**/*.ts"],
 })
