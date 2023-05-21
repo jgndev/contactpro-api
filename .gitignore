@@ -13,4 +13,4 @@ dist/
 .env.*
 
 # TypeORM configuration files
-ormconfig.json
+#ormconfig.js

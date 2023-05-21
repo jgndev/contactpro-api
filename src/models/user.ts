@@ -1,7 +1,7 @@
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {Contact} from "./contact";
 import {Category} from "./category";
-import {UserRole} from "../enum/userRole";
+import {UserRole} from "../enums/userRole";
 
 @Entity()
 @Unique(['username', 'email'])
