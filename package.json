@@ -1,14 +1,17 @@
 {
   "name": "contactpro-api",
   "version": "1.0.0",
-  "description": "npm install express cors bcrypt jsonwebtoken dotenv passport passport-google-oauth20 passport-facebook passport-github   npm install --save-dev typescript @types/node @types/express",
-  "main": "index.js",
+  "description": "Backend API for Contact Pro built with Node.js, Express and TypeScript",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Testing has not been implemented yet...\" && exit 1",
+    "build": "tsc",
+    "start": "tsc && node ./dist/app.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && node ./dist/app.js'"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jeremy Novak",
+  "license": "MIT",
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
@@ -30,6 +33,7 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.2.1",
+    "nodemon": "^2.0.22",
     "typescript": "^5.0.4"
   }
 }
