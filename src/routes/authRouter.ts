@@ -97,13 +97,13 @@ router.post('/login', async (req, res) => {
     }
 });
 
-function isAdmin(req: any, res: any, next: any) {
-    if (req.user && req.user.role === 'admin') {
-        next();
-    } else {
-        res.status(403).json({message: 'Forbidden'});
-    }
-}
+// function isAdmin(req: any, res: any, next: any) {
+//     if (req.user && req.user.role === 'admin') {
+//         next();
+//     } else {
+//         res.status(403).json({message: 'Forbidden'});
+//     }
+// }
 
 function generateToken(user: User) {
     return jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRET as string, {expiresIn: '1h'});
