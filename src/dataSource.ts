@@ -3,6 +3,9 @@ import {User} from "./models/user";
 import {Category} from "./models/category";
 import {Contact} from "./models/contact";
 
+// NOTE:
+// Set 'synchronize: false' with data that should persist.
+// Having 'synchronize: true' will re-initialize the database.
 export const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
