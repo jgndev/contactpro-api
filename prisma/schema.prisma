@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+enum States {
+  AK
+  AL
+  AS
+  AZ
+  AR
+  CA
+  CO
+  CT
+  DE
+  DC
+  FL
+  GA
+  HI
+  ID
+  IL
+  IN
+  IA
+  KS
+  KY
+  LA
+  ME
+  MD
+  MA
+  MI
+  MN
+  MS
+  MO
+  MT
+  NE
+  NV
+  NH
+  NJ
+  NM
+  NY
+  NC
+  ND
+  OH
+  OK
+  OR
+  PA
+  RI
+  SC
+  SD
+  TN
+  TX
+  UT
+  VT
+  VA
+  WA
+  WV
+  WI
+  WY
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  username   String     @unique
+  role       UserRole   @default(USER)
+  email      String     @unique
+  password   String?
+  firstName  String?
+  lastName   String?
+  picture    String?
+  provider   String?
+  contacts   Contact[]
+  categories Category[]
+}
+
+model Contact {
+  id                     Int        @id @default(autoincrement())
+  user                   User       @relation(fields: [userId], references: [id])
+  firstName              String?
+  lastName               String?
+  description            String?
+  photo                  String?
+  birthday               DateTime?
+  streetAddress          String?
+  streetAddressContinued String?
+  city                   String?
+  state                  States
+  zipCode                String?
+  categories             Category[]
+  userId                 Int
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  user     User      @relation(fields: [userId], references: [id])
+  name     String
+  contacts Contact[]
+  userId   Int
+}
