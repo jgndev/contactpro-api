@@ -1,7 +1,7 @@
 import {TokenPayload} from "./interfaces/tokenPayload";
 
-declare namespace Express {
-    export interface Request {
+declare module 'express-serve-static-core' {
+    interface Request {
         user?: TokenPayload;
     }
 }

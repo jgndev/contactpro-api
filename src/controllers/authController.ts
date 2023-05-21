@@ -69,54 +69,21 @@ app.use((req, res, next) => {
     const token = req.headers['authorization'];
     if (!token) return next(); // continue if no token
 
-    // jwt.verify(token, process.env.JWT_SECRET as string, (err, decodedToken: any) => {
-    //     if (err) {
-    //         return res.status(401).json({error: "Unauthorized"})
-    //     } else {
-    //         // req.user = user;
-    //         // next();
-    //         req.user = {
-    //             id: decodedToken.id,
-    //             role: decodedToken.role,
-    //         };
-    //         next();
-    //     }
-    // });
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
 
-    // jwt.verify(token, process.env.JWT_SECRET as string, (err, decodedToken: TokenPayload) => {
-    //     if (err || !decodedToken) {
-    //         return res.status(401).json({error: "Unauthorized"})
-    //     } else {
-    //         req.user = {
-    //             id: decodedToken.id,
-    //             role: decodedToken.role,
-    //         };
-    //         next();
-    //     }
-    // });
-
-    app.use((req, res, next) => {
-        const token = req.headers['authorization'];
-        if (!token) return next(); // continue if no token
-
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
-
-            if (!decodedToken) {
-                return res.status(401).json({error: "Unauthorized"})
-            }
-
-            const payload = decodedToken as TokenPayload;
-
-
-            req.user = {
-                id: payload.id,
-                role: payload.role
-            };
-        } catch (error) {
-            return res.status(401).json({error: "Unauthorized"});
+        if (!decodedToken) {
+            return res.status(401).json({error: "Unauthorized"})
         }
-    });
+
+        const payload = decodedToken as TokenPayload;
 
 
+        req.user = {
+            id: payload.id,
+            role: payload.role
+        };
+    } catch (error) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
 });
