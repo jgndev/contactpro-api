@@ -11,3 +11,6 @@ dist/
 # Evironment files
 .env
 .env.*
+
+# TypeORM configuration files
+ormconfig.json
