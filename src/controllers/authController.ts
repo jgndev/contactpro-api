@@ -1,3 +1,6 @@
+/// <reference types="express" />
+/// <reference path="../custom.d.ts" />
+
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import app from '../app';
@@ -54,7 +57,7 @@ app.post('/login', async (req, res) => {
     })
 });
 
-function isAdmin(req:any, res:any, next:any) {
+function isAdmin(req: any, res: any, next: any) {
     if (req.user && req.user.role === 'admin') {
         next();
     } else {
@@ -91,15 +94,27 @@ app.use((req, res, next) => {
     //         next();
     //     }
     // });
-    jwt.verify(token, process.env.JWT_SECRET as string, (err, decodedToken: TokenPayload) => {
-        if (err || !decodedToken) {
-            return res.status(401).json({error: "Unauthorized"})
-        } else {
+
+    app.use((req, res, next) => {
+        const token = req.headers['authorization'];
+        if (!token) return next(); // continue if no token
+
+        try {
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
+
+            if (!decodedToken) {
+                return res.status(401).json({error: "Unauthorized"})
+            }
+
+            const payload = decodedToken as TokenPayload;
+
+
             req.user = {
-                id: decodedToken.id,
-                role: decodedToken.role,
+                id: payload.id,
+                role: payload.role
             };
-            next();
+        } catch (error) {
+            return res.status(401).json({error: "Unauthorized"});
         }
     });
 

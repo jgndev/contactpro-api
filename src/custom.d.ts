@@ -1,7 +1,7 @@
-import {AuthenticatedUser} from "./interfaces/authenticatedUser";
+import {TokenPayload} from "./interfaces/tokenPayload";
 
 declare namespace Express {
     export interface Request {
-        user?: AuthenticatedUser;
+        user?: TokenPayload;
     }
 }
