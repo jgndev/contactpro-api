@@ -9,9 +9,17 @@ import {RegisterDto} from '../dtos/registerDto';
 import {LoginDto} from '../dtos/loginDto';
 import {RegisterSuccessDto} from "../dtos/registerSuccessDto";
 import {LoginSuccessDto} from "../dtos/loginSuccessDto";
+import passport from "passport";
 
 const router = express.Router();
 const prisma = new PrismaClient()
+
+router.get('/google/', passport.authenticate('google'), (req, res) => res.send(200));
+router.get('/google/callback', passport.authenticate('google', {failureRedirect: '/login'}), (req, res) => {
+    // res.send(200)
+    res.redirect('/');
+    // console.log("Success!");
+});
 
 router.post('/register', async (req, res) => {
     const {username, email, password}: RegisterDto = req.body;
